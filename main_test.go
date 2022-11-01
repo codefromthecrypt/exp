@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"
-	"github.com/tetratelabs/wazero/wasi_snapshot_preview1"
+	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"
 )
 
 //go:generate tinygo build -target=wasi -scheduler=none -o ./testdata/main.wasm ./testdata/main.go
@@ -20,7 +20,7 @@ var bin []byte
 func TestGCWorks(t *testing.T) {
 	ctx := context.Background()
 
-	r := wazero.NewRuntimeWithConfig(ctx, wazero.NewRuntimeConfigCompiler().WithWasmCore2())
+	r := wazero.NewRuntime(ctx)
 	defer r.Close(ctx)
 
 	_, err := wasi_snapshot_preview1.Instantiate(ctx, r)
@@ -30,8 +30,9 @@ func TestGCWorks(t *testing.T) {
 
 	var memoryAllocate api.Function
 	var memory api.Memory
-	_, err = r.NewModuleBuilder("env").
-		ExportFunction("get_message", func(dataPtrPtr uint32, sizePtr uint32) {
+	_, err = r.NewHostModuleBuilder("env").
+		NewFunctionBuilder().
+		WithFunc(func(dataPtrPtr uint32, sizePtr uint32) {
 			res, err := memoryAllocate.Call(ctx, allocationBlock)
 			require.NoError(t, err)
 
@@ -48,10 +49,11 @@ func TestGCWorks(t *testing.T) {
 			ok = memory.WriteUint32Le(ctx, sizePtr, allocationBlock)
 			require.True(t, ok)
 		}).
+		Export("get_message").
 		Instantiate(ctx, r)
 	require.NoError(t, err)
 
-	compiled, err := r.CompileModule(ctx, bin, wazero.NewCompileConfig())
+	compiled, err := r.CompileModule(ctx, bin)
 	require.NoError(t, err)
 
 	mod, err := r.InstantiateModule(ctx, compiled, wazero.NewModuleConfig().WithStdout(os.Stdout))

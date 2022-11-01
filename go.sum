@@ -13,6 +13,8 @@ github.com/tetratelabs/wazero v0.0.0-20220818123113-1948909ec0b1 h1:TjQhlrtayR+3
 github.com/tetratelabs/wazero v0.0.0-20220818123113-1948909ec0b1/go.mod h1:CD5smBN5rGZo7UNe8aUiWyYE3bDWED/CQSonog9NSEg=
 github.com/tetratelabs/wazero v0.0.0-20220819101114-6c2712fd00fc h1:FYxg+8iJb1u/s7hmzQjKxCmrWbqFh7EwN29KVBa+K9o=
 github.com/tetratelabs/wazero v0.0.0-20220819101114-6c2712fd00fc/go.mod h1:CD5smBN5rGZo7UNe8aUiWyYE3bDWED/CQSonog9NSEg=
+github.com/tetratelabs/wazero v1.0.0-pre.3 h1:Z5fbogMUGcERzaQb9mQU8+yJSy0bVvv2ce3dfR4wcZg=
+github.com/tetratelabs/wazero v1.0.0-pre.3/go.mod h1:M8UDNECGm/HVjOfq0EOe4QfCY9Les1eq54IChMLETbc=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
